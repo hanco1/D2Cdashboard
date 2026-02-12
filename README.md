@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+﻿# Informa Collect
 
-## Getting Started
+Lightweight Next.js prototype for D2C internal process assessment.
 
-First, run the development server:
+## What is included
+
+- Public assessment form (`/form`) with 6 sections, 20 questions, conditional logic, progress bar, and validation.
+- Internal dashboard (`/dashboard`) with glassmorphism OS-style cards, key metrics, and submission list.
+- Detail page (`/dashboard/[id]`) showing full answers grouped by section.
+- Submission API (`POST /api/submissions`) with server-side validation.
+
+## Tech stack
+
+- Next.js 16 (App Router)
+- TypeScript
+- Tailwind CSS v4
+- Supabase Postgres
+
+## Local run
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Create env file:
+
+```bash
+copy .env.example .env.local
+```
+
+3. Fill `.env.local`:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=...
+SUPABASE_SERVICE_ROLE_KEY=...
+CLEAR_ALL_USERNAME=...
+CLEAR_ALL_PASSWORD=...
+```
+
+4. Start:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+If database env vars are missing, the app falls back to in-memory demo data.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Supabase setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Create a Supabase project.
+2. Open SQL Editor.
+3. Run `supabase/schema.sql`.
+4. Copy `Project URL` to `NEXT_PUBLIC_SUPABASE_URL`.
+5. Copy `service_role` key to `SUPABASE_SERVICE_ROLE_KEY`.
 
-## Learn More
+## Deploy to Vercel
 
-To learn more about Next.js, take a look at the following resources:
+1. Import this repository into Vercel.
+2. In project settings, add:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+   - `CLEAR_ALL_USERNAME`
+   - `CLEAR_ALL_PASSWORD`
+3. Redeploy.
+4. Use `/form` URL for QR code destination.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Notes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- All UI copy is English.
+- The form schema lives in `src/lib/form-definition.ts`.
+- Dashboard metrics are computed in `src/lib/analysis.ts`.
+- `Clear All Data` uses `CLEAR_ALL_USERNAME` and `CLEAR_ALL_PASSWORD`.

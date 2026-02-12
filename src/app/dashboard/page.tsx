@@ -5,6 +5,8 @@ import { SubmissionCard } from "@/components/submission-card";
 import { buildDashboardMetrics } from "@/lib/analysis";
 import { listSubmissions } from "@/lib/submissions";
 
+export const dynamic = "force-dynamic";
+
 export default async function DashboardPage() {
   const submissions = await listSubmissions();
   const metrics = buildDashboardMetrics(submissions);

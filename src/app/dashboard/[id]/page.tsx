@@ -7,6 +7,8 @@ import { assessmentForm } from "@/lib/form-definition";
 import { displayAnswer } from "@/lib/form-utils";
 import { getSubmissionById } from "@/lib/submissions";
 
+export const dynamic = "force-dynamic";
+
 type SubmissionDetailPageProps = {
   params: Promise<{ id: string }>;
 };
